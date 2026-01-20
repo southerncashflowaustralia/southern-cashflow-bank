@@ -1,8 +1,8 @@
 # Use official PHP + Apache image
 FROM php:8.2-apache
 
-# Copy all repo files into Apache web root
-COPY . /var/www/html/
+# Copy the southern-cashflow-bank folder into Apache web root
+COPY southern-cashflow-bank /var/www/html/
 
 # Enable Apache rewrite module
 RUN a2enmod rewrite
