@@ -1,14 +1,15 @@
 <?php
-// config/db.php
 
-// Database connection details from Render
-$host = getenv('DB_HOST');        // e.g., dpg-d5ngnd1r0fns73fijrcg-a.render.com
-$db   = getenv('DB_NAME');        // southern_cashflow_bank
-$user = getenv('DB_USER');        // southern_cashflow_bank_user
-$pass = getenv('DB_PASSWORD');    // your password
-$port = getenv('DB_PORT');        // 5432
+$host = $_ENV['DB_HOST'] ?? getenv('DB_HOST');
+$port = $_ENV['DB_PORT'] ?? getenv('DB_PORT');
+$db   = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
+$user = $_ENV['DB_USER'] ?? getenv('DB_USER');
+$pass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
 
-// Create connection using PDO
+if (!$host || !$port || !$db || !$user || !$pass) {
+    die("Database connection failed: missing environment variables");
+}
+
 try {
     $dsn = "pgsql:host=$host;port=$port;dbname=$db;";
     $pdo = new PDO($dsn, $user, $pass, [
